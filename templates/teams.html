@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+NepaliStream.com covers all major football and cricket events with indepth analysis, statistics, numbers and facts/figures. We also provide you links to watch live football and cricket matches. NepaliStream.com, your daily dose of football.
+{% endblock %}
+
+{% block title %}
+Teams
+{% endblock %}
+
+{% block css %}
+@media screen and (max-width: 370px) {
+  .highlights{
+    display:none;
+  }
+}
+@media screen and (min-width: 370px) {
+  .hl{
+    display:none;
+  }
+}
+{% endblock %}
+
+{% block content %}
+
+<div class="card-body px-2 pt-3 pb-4 p-sm-3 mr-0 rounded" style="background-color: white;">
+  <h1 class="page-title">
+    Teams
+  </h1>
+  <div class="col-12 p-1 p-sm-2 m-0">
+    <table class="table table-hover small m-0 p-0 table-striped">
+      <thead>
+        <tr>
+          <th>
+            Name
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {%for team in allteams%}
+        {% if team|length == 0 %}
+        <tr>
+          <td class="pt-2 pb-2">
+            {{team}}
+          </td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+    <form class="mt-2" action="" method="post">
+      {% csrf_token %}
+      <input id="name" name="name" type="text" class="rounded p-1" value=""> </br>
+      <input name="add" class = "btn link mt-2" type="submit" value="+ Add new team">
+      <input name="delete" class = "btn link-red mt-2" type="submit" value="Delete">
+    </form>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+
+
+{% endblock %}

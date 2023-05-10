@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+NepaliStream.com covers all major football and cricket events with indepth analysis, statistics, numbers and facts/figures. We also provide you links to watch live football and cricket matches. NepaliStream.com, your daily dose of football.
+{% endblock %}
+
+{% block title %}
+Fixtures
+{% endblock %}
+
+{% block css %}
+@media screen and (max-width: 370px) {
+  .highlights{
+    display:none;
+  }
+}
+@media screen and (min-width: 370px) {
+  .hl{
+    display:none;
+  }
+}
+{% endblock %}
+
+{% block content %}
+
+<div class="card-body px-2 pt-3 pb-4 p-sm-3 mr-0 rounded" style="background-color: white;">
+  <h1 class="page-title">
+    Fixtures
+  </h1>
+  <div class="col-12 p-1 p-sm-2 m-0">
+    <table class="table table-hover small m-0 p-0 table-striped">
+      <thead>
+        <tr>
+          <th>
+            Clubs
+          </th>
+          <th class = "text-right pr-4">
+            Matches
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {%for matches in matchlist%}
+          <tr>
+            <td class="p-0 pl-2 pt-2 pr-4">
+              {{matches.0}}
+            </td>
+            <td class="p-0 pt-1 pb-1 pr-4 text-right">
+              <a class="btn link p-0 pl-2 pr-2" href="{% url 'fixtures' %}{{matches.1}}"><small>View</small></a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+{% endblock %}

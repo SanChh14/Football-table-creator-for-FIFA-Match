@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+NepaliStream.com covers all major football and cricket events with indepth analysis, statistics, numbers and facts/figures. We also provide you links to watch live football and cricket matches. NepaliStream.com, your daily dose of football.
+{% endblock %}
+
+{% block title %}
+Fixtures
+{% endblock %}
+
+{% block css %}
+.league{
+  font-size:20px;
+}
+.link{
+
+}
+@media screen and (max-width: 370px) {
+  .highlights{
+    display:none;
+  }
+}
+@media screen and (min-width: 370px) {
+  .hl{
+    display:none;
+  }
+}
+{% endblock %}
+
+{% block content %}
+
+<div class="card-body px-2 pt-3 pb-4 p-sm-3 mr-0 rounded" style="background-color: white;">
+  <h1 class="page-title">
+    Fixtures > {{matchdata.0.0.t1}} <a class="btn link p-0 pl-2 pr-2 pb-1" href="{% url 'fixtures' %}"><small><-Go Back</small></a>
+  </h1>
+  <div class="col-12 p-1 p-sm-2 m-0">
+    <table class="table table-hover small m-0 p-0">
+      <thead>
+          <tr>
+            <th class = "league display-4" colspan = "6" style = "font-weight:normal; opacity:0.9;">Home</th>
+          </tr>
+        </thead>
+      <tbody>
+        {%for match in matchdata.0 %}
+        <form class="" action="" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="t1" value="{{match.t1}}">
+          <input type="hidden" name="t2" value="{{match.t2}}">
+          <input type="hidden" name="slug" value="{{match.t1}}">
+          <tr>
+            <td class="p-0 pt-2 pr-2 text-right">
+              {{match.t1}}
+            </td>
+            <td class="p-0 pt-1 text-center">
+              <input class="rounded p-0 pl-2 pr-2 {% if match.status == 1 %}border-danger{% endif %}" type="text" name="t1g" value="{{match.t1g}}" size="1", maxlength="2" {% if match.status == 1 %}readonly{% endif %}>
+            </td>
+            <td class="p-0 pt-2 text-center pl-1 pr-1">
+              v
+            </td>
+            <td class="p-0 pt-1 text-center">
+              <input class="rounded p-0 pl-2 pr-2 {% if match.status == 1 %}border-danger{% endif %}" type="text" name="t2g" value="{{match.t2g}}" size="1", maxlength="2" {% if match.status == 1 %}readonly{% endif %}>
+            </td>
+            <td class="p-0 pt-2 pl-2">
+              {{match.t2}}
+            </td>
+            <td class="text-right p-0 pt-1 pb-1">
+                {% if match.status == 0 %}
+                <input name="Play" class="btn link p-0 pl-2 pr-2" type="submit"  value="Play">
+                {% else %}
+                <input name="Unplay" class="btn link-red p-0 pl-2 pr-2" type="submit"  value="Unplay">
+                {% endif %}
+            </td>
+          </tr>
+          </form>
+        {% endfor %}
+      </tbody>
+      <thead>
+          <tr>
+            <th class = "league display-4" colspan = "6" style = "font-weight:normal; opacity:0.9;">Away</th>
+          </tr>
+        </thead>
+      <tbody>
+        {%for match in matchdata.1 %}
+        <form class="" action="" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="t1" value="{{match.t1}}">
+          <input type="hidden" name="t2" value="{{match.t2}}">
+          <input type="hidden" name="slug" value="{{match.t2}}">
+          <tr>
+            <td class="p-0 pt-2 pr-4 text-right">
+              {{match.t1}}
+            </td>
+            <td class="p-0 pt-1 text-center">
+              <input class="rounded p-0 pl-2 pr-2 {% if match.status == 1 %}border-danger{% endif %}" type="text" name="t1g" value="{{match.t1g}}" size="1", maxlength="2" {% if match.status == 1 %}readonly{% endif %}>
+            </td>
+            <td class="p-0 pt-2 text-center">
+              v
+            </td>
+            <td class="p-0 pt-1 text-center">
+              <input class="rounded p-0 pl-2 pr-2 {% if match.status == 1 %}border-danger{% endif %}" type="text" name="t2g" value="{{match.t2g}}" size="1", maxlength="2" {% if match.status == 1 %}readonly{% endif %}>
+            </td>
+            <td class="p-0 pt-2 pl-4">
+              {{match.t2}}
+            </td>
+            <td class="text-right p-0 pt-1 pb-1">
+                {% if match.status == 0 %}
+                <input class="btn link p-0 pl-2 pr-2" type="submit" name="Play" value="Play">
+                {% else %}
+                <input class="btn link-red p-0 pl-2 pr-2" type="submit" name="Unplay" value="Unplay">
+                {% endif %}
+            </td>
+          </tr>
+          </form>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+{% endblock %}

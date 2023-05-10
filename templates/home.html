@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+NepaliStream.com covers all major football and cricket events with indepth analysis, statistics, numbers and facts/figures. We also provide you links to watch live football and cricket matches. NepaliStream.com, your daily dose of football.
+{% endblock %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block css %}
+@media screen and (max-width: 370px) {
+  .highlights{
+    display:none;
+  }
+}
+@media screen and (min-width: 370px) {
+  .hl{
+    display:none;
+  }
+}
+{% endblock %}
+
+{% block content %}
+<div class="card-body px-2 pt-3 pb-4 p-sm-3 mr-0 rounded" style="background-color: white;">
+  <h1 class="page-title">
+    Tables
+  </h1>
+  <div class="col-12 p-1 p-sm-2 m-0">
+
+    {% if teams|length == 0 %}
+      <div class = "text-center" style = "background-color:rgba(216, 216, 216, 0.2); border-radius:5px;">No data found.</div>
+    {% endif %}
+
+    <table class="table table-hover small m-0 p-0 table-striped">
+      <thead>
+        <tr>
+          {% for th in head %}
+            <th class = "p-0 pt-2 pb-2 pr-2 pl-2 {% if th|length < 4 %}text-right{% else %}text-left{% endif %}">{{th}}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for team in teams %}
+        <tr>
+              <th class = "p-0 pt-2 pb-2 pl-2 text-left">{{team.name}}</th>
+              <td class = "p-0 pt-2 pb-2 pr-2 text-right">
+                <span>{{team.mp}}</span>
+              </td>
+              <td class = "p-0 pt-2 pb-2 pr-2 text-right">
+                <span>{{team.w}}</span>
+              </td>
+              <td class = "p-0 pt-2 pb-2 pr-2 text-right">
+                <span>{{team.d}}</span>
+              </td>
+              <td class = "p-0 pt-2 pb-2 pr-2 text-right">
+                <span>{{team.l}}</span>
+              </td>
+            <td class = "p-0 pt-2 pb-2 pr-2 text-right">
+              <span>{{team.gf}}</span>
+            </td>
+          <td class = "p-0 pt-2 pb-2 pr-2 text-right">
+            <span>{{team.ga}}</span>
+          </td>
+        <td class = "p-0 pt-2 pb-2 pr-2 text-right">
+          <span style="color:{% if team.gd < 0 %}red{% else %}green{% endif %}">
+              {{team.gd}}
+          </span>
+        </td>
+        <td class = "p-0 pt-2 pb-2 pr-2 text-right" >
+          <span>{{team.pts}}</span>
+        </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+  </div>
+</div>
+{% endblock %}
